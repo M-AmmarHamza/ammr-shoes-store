@@ -2,260 +2,318 @@
 
 import * as React from "react";
 
-const TARGET_PRESETS = [50, 100, 200];
+const products = [
+  {
+    id: "urban-runner",
+    name: "Urban Runner Knit",
+    category: "Sneakers",
+    price: 7490,
+    oldPrice: 8990,
+    sizes: ["40", "41", "42", "43"],
+    badge: "18% off",
+    image:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "office-classic",
+    name: "Office Classic Derby",
+    category: "Formal",
+    price: 9990,
+    oldPrice: 11990,
+    sizes: ["39", "40", "41", "42", "44"],
+    badge: "Best seller",
+    image:
+      "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "comfort-slide",
+    name: "Daily Comfort Slides",
+    category: "Slippers",
+    price: 2490,
+    oldPrice: 3290,
+    sizes: ["38", "39", "40", "41", "42"],
+    badge: "COD ready",
+    image:
+      "https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "school-step",
+    name: "Kids School Step",
+    category: "Kids",
+    price: 3990,
+    oldPrice: 4590,
+    sizes: ["29", "30", "31", "32", "33"],
+    badge: "New",
+    image:
+      "https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=900&q=80",
+  },
+];
 
-async function readFiles(fileList) {
-  return Array.from(fileList).map((file) => ({
-    id: crypto.randomUUID(),
-    file,
-    name: file.name,
-    size: file.size,
-    originalUrl: URL.createObjectURL(file),
-  }));
-}
+const policies = [
+  ["Shipping", "2-5 working days across major Pakistan cities with COD support."],
+  ["Exchange", "Size exchange requests accepted within 7 days on unused products."],
+  ["Privacy", "Customer phone, address, and order details stay protected and private."],
+  ["Support", "WhatsApp-first support for order updates, returns, and quick questions."],
+];
 
-function bytesToKB(bytes) {
-  return `${(bytes / 1024).toFixed(1)} KB`;
-}
+const adminItems = [
+  ["Products", "Add sizes, colors, sale prices, stock, and image galleries."],
+  ["Orders", "Move orders from pending to confirmed, shipped, delivered, or returned."],
+  ["Offers", "Create coupons, homepage sale banners, and scheduled discounts."],
+  ["Blog", "Publish SEO posts for sneakers, formal shoes, slippers, and size guides."],
+];
 
-function formatPercent(before, after) {
-  if (!before || before <= 0) return "0.0";
-  return ((1 - after / before) * 100).toFixed(1);
-}
-
-function formatResultCard(result, file) {
-  const compression = formatPercent(file.size, result.compressedSize);
-  return (
-    <article className="result-card" key={result.id}>
-      <div className="result-title">{result.name}</div>
-      <div className="comparison">
-        <figure>
-          <img src={file.originalUrl} alt={`Original ${result.name}`} />
-          <figcaption>Original</figcaption>
-        </figure>
-        <span className="arrow">→</span>
-        <figure>
-          <img src={result.dataUrl} alt={`Compressed ${result.name}`} />
-          <figcaption>Compressed ({result.format.toUpperCase()})</figcaption>
-        </figure>
-      </div>
-      <div className="result-stats">
-        <span>Original: {bytesToKB(file.size)}</span>
-        <span>Compressed: {bytesToKB(result.compressedSize)}</span>
-        <span>Saved: {compression}%</span>
-      </div>
-      <a className="download-btn" href={result.dataUrl} download={result.downloadName}>
-        Download
-      </a>
-    </article>
-  );
+function currency(value) {
+  return `PKR ${value.toLocaleString("en-PK")}`;
 }
 
 export default function HomePage() {
-  const [files, setFiles] = React.useState([]);
-  const [results, setResults] = React.useState([]);
-  const [processing, setProcessing] = React.useState(false);
-  const [error, setError] = React.useState("");
-  const [preset, setPreset] = React.useState("100");
-  const [customSize, setCustomSize] = React.useState(150);
-  const [format, setFormat] = React.useState("webp");
-  const [resize, setResize] = React.useState(true);
+  const [cart, setCart] = React.useState([]);
+  const [activeCategory, setActiveCategory] = React.useState("All");
 
-  const targetKB = preset === "custom" ? Number(customSize) : Number(preset);
+  const categories = ["All", ...new Set(products.map((product) => product.category))];
+  const visibleProducts =
+    activeCategory === "All"
+      ? products
+      : products.filter((product) => product.category === activeCategory);
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-  const onFilesPicked = React.useCallback(async (picked) => {
-    setError("");
-    const list = await readFiles(picked);
-    setFiles((prev) => [...prev, ...list]);
-  }, []);
+  function addToCart(product) {
+    setCart((current) => {
+      const existing = current.find((item) => item.id === product.id);
+      if (existing) {
+        return current.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+        );
+      }
+      return [...current, { ...product, qty: 1, selectedSize: product.sizes[0] }];
+    });
+  }
 
-  const removeFile = React.useCallback((id) => {
-    setFiles((prev) => prev.filter((item) => item.id !== id));
-  }, []);
-
-  const onDrop = React.useCallback(
-    (event) => {
-      event.preventDefault();
-      const filesFromDrop = event.dataTransfer?.files;
-      if (!filesFromDrop?.length) return;
-      onFilesPicked(filesFromDrop);
-    },
-    [onFilesPicked]
-  );
-
-  const onBrowse = React.useCallback(
-    (event) => {
-      const picked = event.target.files;
-      if (!picked?.length) return;
-      onFilesPicked(picked);
-      event.target.value = "";
-    },
-    [onFilesPicked]
-  );
-
-  const clearAll = React.useCallback(() => {
-    setFiles([]);
-    setResults([]);
-    setError("");
-  }, []);
-
-  const compressNow = React.useCallback(async () => {
-    if (!files.length) return;
-    if (!Number.isFinite(targetKB) || targetKB <= 0) {
-      setError("Please select a valid target size in KB.");
-      return;
-    }
-
-    setProcessing(true);
-    setError("");
-
-    try {
-      const form = new FormData();
-      files.forEach((f) => form.append("files", f.file));
-      files.forEach((f) => form.append("ids", f.id));
-      form.append("targetKB", String(targetKB));
-      form.append("format", format);
-      form.append("maxWidth", resize ? "1200" : "0");
-
-      const res = await fetch("/api/compress", {
-        method: "POST",
-        body: form,
-      });
-
-      const payload = await res.json();
-      if (!res.ok) throw new Error(payload?.error || "Compression failed.");
-
-      setResults(payload.results || []);
-    } catch (err) {
-      setError(err.message || "Unknown compression error.");
-    } finally {
-      setProcessing(false);
-    }
-  }, [files, format, resize, targetKB]);
+  function changeQty(id, direction) {
+    setCart((current) =>
+      current
+        .map((item) =>
+          item.id === id ? { ...item, qty: Math.max(0, item.qty + direction) } : item
+        )
+        .filter((item) => item.qty > 0)
+    );
+  }
 
   return (
-    <main className="shell">
-      <section className="panel">
-        <h1>Image Compression Studio</h1>
-        <p className="lead">
-          Upload one or many images, pick a size target, and generate WebP by
-          default with optional JPEG/PNG output.
-        </p>
+    <main>
+      <nav className="nav">
+        <a className="brand" href="#home" aria-label="Ammar Shoes home">
+          <span>AS</span>
+          Ammar Shoes
+        </a>
+        <div className="nav-links">
+          <a href="#shop">Shop</a>
+          <a href="#cart">Cart</a>
+          <a href="#admin">Admin</a>
+          <a href="#policies">Policies</a>
+        </div>
+      </nav>
 
-        <section
-          className="dropzone"
-          onDragOver={(event) => event.preventDefault()}
-          onDrop={onDrop}
-        >
-          <div className="dropzone-copy">Drag and drop images here</div>
-          <span>or</span>
-          <label className="browse-btn">
-            Select files
-            <input
-              id="upload"
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={onBrowse}
-            />
-          </label>
-        </section>
-
-        <section className="controls">
-          <div className="field">
-            <label htmlFor="size">Target Size</label>
-            <select
-              id="size"
-              value={preset}
-              onChange={(event) => setPreset(event.target.value)}
-            >
-              {TARGET_PRESETS.map((value) => (
-                <option key={value} value={String(value)}>
-                  {value} KB
-                </option>
-              ))}
-              <option value="custom">Custom</option>
-            </select>
-            {preset === "custom" && (
-              <input
-                type="number"
-                min="1"
-                value={customSize}
-                onChange={(event) =>
-                  setCustomSize(Number(event.target.value) || 1)
-                }
-              />
-            )}
+      <section className="hero" id="home">
+        <div className="hero-media" aria-hidden="true" />
+        <div className="hero-copy">
+          <p className="eyebrow">Pakistan-wide COD footwear store</p>
+          <h1>Ammar Shoes</h1>
+          <p>
+            Sneakers, formals, slippers, and kids shoes with fast checkout,
+            size exchange, and SEO-ready product pages.
+          </p>
+          <div className="hero-actions">
+            <a className="button primary" href="#shop">Shop collection</a>
+            <a className="button ghost" href="#admin">View admin plan</a>
           </div>
-
-          <div className="field">
-            <label htmlFor="format">Output Format</label>
-            <select
-              id="format"
-              value={format}
-              onChange={(event) => setFormat(event.target.value)}
-            >
-              <option value="webp">WebP (default)</option>
-              <option value="jpeg">JPEG</option>
-              <option value="png">PNG</option>
-            </select>
-          </div>
-
-          <label className="toggle">
-            <input
-              type="checkbox"
-              checked={resize}
-              onChange={(event) => setResize(event.target.checked)}
-            />
-            <span>Resize wide images to max 1200px (unless unchecked)</span>
-          </label>
-        </section>
-
-        {error && <p className="error">{error}</p>}
-
-        {files.length > 0 && (
-          <section className="file-actions">
-            <button className="clear-btn" onClick={clearAll}>
-              Clear Files
-            </button>
-            <button
-              className="primary-btn"
-              onClick={compressNow}
-              disabled={processing}
-            >
-              {processing ? "Compressing..." : "Compress"}
-            </button>
-          </section>
-        )}
-
-        {files.length > 0 && (
-          <section className="stack">
-            {files.map((file) => (
-              <article className="thumb-card" key={file.id}>
-                <img src={file.originalUrl} alt={file.name} />
-                <div className="thumb-meta">
-                  <h3>{file.name}</h3>
-                  <p>{bytesToKB(file.size)}</p>
-                  <button onClick={() => removeFile(file.id)}>Remove</button>
-                </div>
-              </article>
-            ))}
-          </section>
-        )}
+        </div>
+        <div className="hero-stats">
+          <span>PKR pricing</span>
+          <span>COD first</span>
+          <span>7 day exchange</span>
+        </div>
       </section>
 
-      {results.length > 0 && (
-        <section className="panel results">
-          <h2>Before / After</h2>
-          <div className="result-grid">
-            {results.map((result) => {
-              const original = files.find((f) => f.id === result.id);
-              if (!original) return null;
-              return formatResultCard(result, original);
-            })}
+      <section className="strip" aria-label="Store promises">
+        <span>Karachi</span>
+        <span>Lahore</span>
+        <span>Islamabad</span>
+        <span>Rawalpindi</span>
+        <span>Faisalabad</span>
+        <span>Multan</span>
+      </section>
+
+      <section className="section" id="shop">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Shop</p>
+            <h2>Compact catalogue for daily selling</h2>
           </div>
-        </section>
-      )}
+          <div className="filters" aria-label="Product filters">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={activeCategory === category ? "active" : ""}
+                onClick={() => setActiveCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="product-grid">
+          {visibleProducts.map((product) => (
+            <article className="product-card" key={product.id}>
+              <img src={product.image} alt={`${product.name} shoes`} />
+              <div className="product-body">
+                <span className="badge">{product.badge}</span>
+                <h3>{product.name}</h3>
+                <p>{product.category} shoes with durable finish and soft footbed.</p>
+                <div className="sizes">
+                  {product.sizes.map((size) => (
+                    <span key={size}>{size}</span>
+                  ))}
+                </div>
+                <div className="price-row">
+                  <strong>{currency(product.price)}</strong>
+                  <del>{currency(product.oldPrice)}</del>
+                </div>
+                <button className="button full" onClick={() => addToCart(product)}>
+                  Add to cart
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="commerce-grid" id="cart">
+        <div className="checkout-panel">
+          <p className="eyebrow">Cart</p>
+          <h2>Quick order review</h2>
+          {cart.length === 0 ? (
+            <p className="muted">Cart empty hai. Shop se koi product add karein.</p>
+          ) : (
+            <div className="cart-list">
+              {cart.map((item) => (
+                <div className="cart-item" key={item.id}>
+                  <img src={item.image} alt="" />
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span>Size {item.selectedSize} · {currency(item.price)}</span>
+                  </div>
+                  <div className="qty">
+                    <button onClick={() => changeQty(item.id, -1)}>-</button>
+                    <span>{item.qty}</span>
+                    <button onClick={() => changeQty(item.id, 1)}>+</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="total-line">
+            <span>Subtotal</span>
+            <strong>{currency(total)}</strong>
+          </div>
+          <div className="total-line">
+            <span>Delivery</span>
+            <strong>{total ? currency(250) : currency(0)}</strong>
+          </div>
+          <div className="grand-total">
+            <span>Total</span>
+            <strong>{currency(total ? total + 250 : 0)}</strong>
+          </div>
+        </div>
+
+        <form className="checkout-panel">
+          <p className="eyebrow">Checkout</p>
+          <h2>Cash on delivery order</h2>
+          <label>
+            Full name
+            <input placeholder="Muhammad Ammar" />
+          </label>
+          <label>
+            Phone / WhatsApp
+            <input placeholder="03XX XXXXXXX" />
+          </label>
+          <label>
+            City
+            <select defaultValue="Karachi">
+              <option>Karachi</option>
+              <option>Lahore</option>
+              <option>Islamabad</option>
+              <option>Rawalpindi</option>
+              <option>Faisalabad</option>
+              <option>Multan</option>
+            </select>
+          </label>
+          <label>
+            Address
+            <textarea placeholder="House, street, area, landmark" />
+          </label>
+          <button className="button primary full" type="button">Place COD order</button>
+        </form>
+      </section>
+
+      <section className="section" id="admin">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Admin panel</p>
+            <h2>Controls for offers, products, news, and orders</h2>
+          </div>
+          <a className="button ghost" href="#policies">See policies</a>
+        </div>
+        <div className="admin-board">
+          <div className="admin-main">
+            <div className="admin-metric">
+              <span>Today orders</span>
+              <strong>24</strong>
+            </div>
+            <div className="admin-metric">
+              <span>Revenue</span>
+              <strong>PKR 186k</strong>
+            </div>
+            <div className="admin-metric">
+              <span>Low stock</span>
+              <strong>8</strong>
+            </div>
+          </div>
+          {adminItems.map(([title, text]) => (
+            <article className="admin-card" key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="policy-band" id="policies">
+        <div>
+          <p className="eyebrow">Legal and trust pages</p>
+          <h2>Ready pages for a Pakistan ecommerce launch</h2>
+        </div>
+        <div className="policy-grid">
+          {policies.map(([title, text]) => (
+            <article key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="blog-row">
+        <article>
+          <p className="eyebrow">Blog</p>
+          <h2>SEO topics to publish first</h2>
+        </article>
+        <a href="#shop">Best sneakers in Pakistan</a>
+        <a href="#shop">Formal shoes size guide</a>
+        <a href="#shop">Daily slippers buying tips</a>
+      </section>
     </main>
   );
 }
