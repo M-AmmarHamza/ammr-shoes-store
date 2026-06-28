@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Footer, Header } from "./components/SiteChrome";
 
 export const metadata = {
   title: "Ammar Shoes | Pakistan Footwear Store",
@@ -22,7 +23,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
