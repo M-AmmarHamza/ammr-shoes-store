@@ -19,6 +19,13 @@ export default function HomePage() {
     "How to choose formal shoes for office and events",
     "Slippers, sandals, or slides: what should you buy?",
   ];
+  const cities = [
+    ["Karachi", "Sindh capital", "Mazar-e-Quaid", "https://images.unsplash.com/photo-1609948543911-7f01ff385be5?auto=format&fit=crop&w=700&q=80"],
+    ["Lahore", "Punjab capital", "Minar-e-Pakistan", "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=700&q=80"],
+    ["Islamabad", "Pakistan capital", "Faisal Mosque", "https://images.unsplash.com/photo-1578357237164-5831adfed695?auto=format&fit=crop&w=700&q=80"],
+    ["Peshawar", "KPK capital", "Qissa Khwani Bazaar", "https://images.unsplash.com/photo-1627894006066-b45720af0803?auto=format&fit=crop&w=700&q=80"],
+    ["Quetta", "Balochistan capital", "Hanna Lake region", "https://images.unsplash.com/photo-1626198226928-6174bf6c9e8f?auto=format&fit=crop&w=700&q=80"],
+  ];
 
   return (
     <main>
@@ -43,13 +50,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="strip" aria-label="Delivery cities">
-        <span>Karachi</span>
-        <span>Lahore</span>
-        <span>Islamabad</span>
-        <span>Rawalpindi</span>
-        <span>Faisalabad</span>
-        <span>Multan</span>
+      <section className="city-strip" aria-label="Pakistan capital city delivery coverage">
+        {cities.map(([city, role, landmark, image]) => (
+          <article key={city}>
+            <img src={image} alt={`${landmark} representing ${city}`} />
+            <div>
+              <span>{role}</span>
+              <strong>{city}</strong>
+              <p>{landmark}</p>
+            </div>
+          </article>
+        ))}
       </section>
 
       <section className="category-showcase">
