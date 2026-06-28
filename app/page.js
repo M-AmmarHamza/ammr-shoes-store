@@ -3,6 +3,22 @@ import { currency, products } from "./store-data";
 
 export default function HomePage() {
   const featured = products.slice(0, 3);
+  const categories = [
+    ["Sneakers", "Street-ready comfort for college, office, and daily wear.", products[0].image],
+    ["Formal Shoes", "Polished pairs for meetings, weddings, and work days.", products[1].image],
+    ["Slippers", "Soft daily chappal and slides for relaxed Pakistani weather.", products[2].image],
+    ["Kids Shoes", "Durable school and play shoes with easy size guidance.", products[3].image],
+  ];
+  const stories = [
+    ["Size exchange", "7 day exchange support for unused pairs, so sizing feels less risky."],
+    ["COD checkout", "Cash on delivery first, with phone confirmation before dispatch."],
+    ["Local support", "WhatsApp-friendly service for order status, returns, and fit advice."],
+  ];
+  const blogPosts = [
+    "Best sneakers in Pakistan for daily wear",
+    "How to choose formal shoes for office and events",
+    "Slippers, sandals, or slides: what should you buy?",
+  ];
 
   return (
     <main>
@@ -36,6 +52,40 @@ export default function HomePage() {
         <span>Multan</span>
       </section>
 
+      <section className="category-showcase">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Categories</p>
+            <h2>Shop by purpose</h2>
+          </div>
+          <p className="muted wide">
+            Homepage ko simple rakhte hue direct buying paths: daily sneakers,
+            office formals, slippers, sandals, sports, and kids footwear.
+          </p>
+        </div>
+        <div className="category-grid">
+          {categories.map(([title, text, image]) => (
+            <Link className="category-tile" href="/shop" key={title}>
+              <img src={image} alt={`${title} category`} />
+              <span>{title}</span>
+              <p>{text}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="offer-band">
+        <div>
+          <p className="eyebrow">Launch offer</p>
+          <h2>Weekend footwear drop</h2>
+          <p>
+            Featured pairs, size exchange, and COD confirmation for first-time
+            customers across major Pakistan cities.
+          </p>
+        </div>
+        <Link className="button light" href="/shop">Explore sale picks</Link>
+      </section>
+
       <section className="section">
         <div className="section-head">
           <div>
@@ -61,6 +111,63 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="experience-band">
+        <div className="experience-copy">
+          <p className="eyebrow">Why Ammar Shoes</p>
+          <h2>Built around Pakistani shopping habits</h2>
+          <p>
+            Buyers want clear prices, honest delivery timing, easy exchange
+            rules, and fast support. The homepage now leads customers through
+            trust, categories, featured products, and checkout confidence before
+            they reach the footer.
+          </p>
+        </div>
+        <div className="story-grid">
+          {stories.map(([title, text]) => (
+            <article key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="lookbook">
+        <div>
+          <p className="eyebrow">Lookbook</p>
+          <h2>Daily wear, office polish, weekend comfort</h2>
+        </div>
+        <div className="lookbook-grid">
+          <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=900&q=80" alt="Sneakers lifestyle" />
+          <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=900&q=80" alt="Sport shoes closeup" />
+          <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Casual shoes display" />
+        </div>
+      </section>
+
+      <section className="home-news">
+        <div>
+          <p className="eyebrow">News and buying guides</p>
+          <h2>SEO content ready for launch</h2>
+        </div>
+        <div className="news-list">
+          {blogPosts.map((post) => (
+            <Link href="/shop" key={post}>{post}</Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="newsletter">
+        <div>
+          <p className="eyebrow">Stay updated</p>
+          <h2>Get sale alerts and new arrivals</h2>
+          <p>Customers can later subscribe by email or WhatsApp for offers.</p>
+        </div>
+        <form>
+          <input placeholder="Email or WhatsApp number" />
+          <button className="button primary" type="button">Notify me</button>
+        </form>
       </section>
     </main>
   );
