@@ -20,11 +20,11 @@ export default function HomePage() {
     "Slippers, sandals, or slides: what should you buy?",
   ];
   const cities = [
-    ["Karachi", "Sindh capital", "Mazar-e-Quaid", "https://images.unsplash.com/photo-1609948543911-7f01ff385be5?auto=format&fit=crop&w=700&q=80"],
-    ["Lahore", "Punjab capital", "Minar-e-Pakistan", "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=700&q=80"],
-    ["Islamabad", "Pakistan capital", "Faisal Mosque", "https://images.unsplash.com/photo-1578357237164-5831adfed695?auto=format&fit=crop&w=700&q=80"],
-    ["Peshawar", "KPK capital", "Qissa Khwani Bazaar", "https://images.unsplash.com/photo-1627894006066-b45720af0803?auto=format&fit=crop&w=700&q=80"],
-    ["Quetta", "Balochistan capital", "Hanna Lake region", "https://images.unsplash.com/photo-1626198226928-6174bf6c9e8f?auto=format&fit=crop&w=700&q=80"],
+    ["Karachi", "Sindh capital", "Mazar-e-Quaid", "mausoleum"],
+    ["Lahore", "Punjab capital", "Minar-e-Pakistan", "minar"],
+    ["Islamabad", "Pakistan capital", "Faisal Mosque", "mosque"],
+    ["Peshawar", "KPK capital", "Qissa Khwani Bazaar", "bazaar"],
+    ["Quetta", "Balochistan capital", "Mountain valley", "mountain"],
   ];
 
   return (
@@ -51,9 +51,11 @@ export default function HomePage() {
       </section>
 
       <section className="city-strip" aria-label="Pakistan capital city delivery coverage">
-        {cities.map(([city, role, landmark, image]) => (
+        {cities.map(([city, role, landmark, icon]) => (
           <article key={city}>
-            <img src={image} alt={`${landmark} representing ${city}`} />
+            <div className={`city-icon ${icon}`} aria-hidden="true">
+              <span />
+            </div>
             <div>
               <span>{role}</span>
               <strong>{city}</strong>

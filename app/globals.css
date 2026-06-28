@@ -332,47 +332,32 @@ img {
 .city-strip {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
-  background: rgba(231, 222, 210, 0.9);
-  border-bottom: 1px solid var(--line);
+  gap: 14px;
+  padding: clamp(22px, 4vw, 42px) clamp(18px, 4vw, 54px);
+  background: rgba(255, 253, 248, 0.5);
+  border-bottom: 1px solid rgba(231, 222, 210, 0.72);
 }
 
 .city-strip article {
-  position: relative;
   min-height: 210px;
   display: grid;
-  align-items: end;
+  align-content: space-between;
+  gap: 18px;
   overflow: hidden;
   padding: 18px;
-  color: #fff;
-  background: var(--charcoal);
+  color: var(--ink);
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.86), rgba(247, 239, 228, 0.72)),
+    radial-gradient(circle at 85% 10%, rgba(216, 161, 61, 0.18), transparent 34%);
+  border: 1px solid rgba(231, 222, 210, 0.82);
+  box-shadow: 0 18px 38px rgba(33, 26, 20, 0.08);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 
-.city-strip img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.58;
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.city-strip article:hover img {
-  opacity: 0.76;
-  transform: scale(1.06);
-}
-
-.city-strip article::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.78));
-}
-
-.city-strip div {
-  position: relative;
-  z-index: 1;
+.city-strip article:hover {
+  transform: translateY(-5px);
+  border-color: rgba(216, 161, 61, 0.55);
+  box-shadow: 0 24px 50px rgba(33, 26, 20, 0.12);
 }
 
 .city-strip span {
@@ -394,8 +379,151 @@ img {
 
 .city-strip p {
   margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--muted);
   font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+.city-icon {
+  position: relative;
+  width: 86px;
+  height: 72px;
+  color: var(--green);
+}
+
+.city-icon::before,
+.city-icon::after,
+.city-icon span,
+.city-icon span::before,
+.city-icon span::after {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+.city-icon.mausoleum::before {
+  left: 16px;
+  top: 10px;
+  width: 54px;
+  height: 28px;
+  border: 4px solid currentColor;
+  border-bottom: 0;
+  border-radius: 28px 28px 0 0;
+}
+
+.city-icon.mausoleum::after {
+  left: 8px;
+  bottom: 10px;
+  width: 70px;
+  height: 28px;
+  border: 4px solid currentColor;
+  border-top-width: 8px;
+}
+
+.city-icon.mausoleum span {
+  left: 36px;
+  bottom: 10px;
+  width: 14px;
+  height: 30px;
+  background: currentColor;
+  opacity: 0.22;
+}
+
+.city-icon.minar::before {
+  left: 38px;
+  top: 4px;
+  width: 10px;
+  height: 56px;
+  background: currentColor;
+  border-radius: 9px 9px 0 0;
+}
+
+.city-icon.minar::after {
+  left: 22px;
+  bottom: 8px;
+  width: 42px;
+  height: 12px;
+  border: 4px solid currentColor;
+  border-top: 0;
+}
+
+.city-icon.minar span {
+  left: 31px;
+  top: 18px;
+  width: 24px;
+  height: 24px;
+  border: 4px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.35;
+}
+
+.city-icon.mosque::before {
+  left: 10px;
+  bottom: 12px;
+  width: 66px;
+  height: 34px;
+  border: 4px solid currentColor;
+  border-radius: 36px 36px 6px 6px;
+}
+
+.city-icon.mosque::after {
+  left: 38px;
+  top: 2px;
+  width: 10px;
+  height: 64px;
+  background: currentColor;
+}
+
+.city-icon.mosque span {
+  left: 18px;
+  bottom: 12px;
+  width: 50px;
+  height: 18px;
+  background: currentColor;
+  opacity: 0.18;
+}
+
+.city-icon.bazaar::before {
+  left: 6px;
+  top: 12px;
+  width: 74px;
+  height: 18px;
+  background: repeating-linear-gradient(90deg, currentColor 0 12px, transparent 12px 20px);
+  opacity: 0.9;
+}
+
+.city-icon.bazaar::after {
+  left: 10px;
+  bottom: 10px;
+  width: 66px;
+  height: 34px;
+  border: 4px solid currentColor;
+}
+
+.city-icon.bazaar span {
+  left: 31px;
+  bottom: 10px;
+  width: 24px;
+  height: 34px;
+  background: currentColor;
+  opacity: 0.18;
+}
+
+.city-icon.mountain::before {
+  left: 4px;
+  bottom: 10px;
+  width: 78px;
+  height: 48px;
+  background: currentColor;
+  clip-path: polygon(0 100%, 28% 28%, 42% 58%, 62% 10%, 100% 100%);
+}
+
+.city-icon.mountain::after {
+  left: 15px;
+  bottom: 8px;
+  width: 58px;
+  height: 5px;
+  background: var(--gold);
+  border-radius: 999px;
 }
 
 .section,
