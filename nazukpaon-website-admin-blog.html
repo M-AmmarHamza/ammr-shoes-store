@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NazukPaon | All-in-One Store + Admin + Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --rose:#C2185B;
+      --rose-2:#e91e73;
+      --gold:#D4A017;
+      --ivory:#FAF7F2;
+      --charcoal:#2b2b2b;
+      --muted:#726a70;
+      --line:#ebddd5;
+      --card:#fff;
+      --shadow:0 18px 45px rgba(44,44,44,.15);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--charcoal);
+      background:radial-gradient(circle at top,var(--ivory), #fff);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+    }
+    h1,h2,h3,h4,p{margin:0}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:min(1180px,92%);margin:0 auto}
+    .topbar{background:#141414;color:#fff;padding:10px 0;text-align:center;font-size:14px}
+    .topbar b{color:#ffd166}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:14px 4%;background:rgba(250,247,242,.92);backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(44,44,44,.1)
+    }
+    .brand{font-family:"Playfair Display",serif;font-size:34px;color:var(--rose);line-height:1}
+    .brand span{color:var(--gold)}
+    .menu{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+    .menu a{font-weight:700;font-size:14px;padding:8px 10px;border-radius:999px}
+    .menu a:hover{background:#f7e2ed}
+    .btn{
+      border:0;border-radius:999px;padding:11px 18px;font-weight:800;
+      cursor:pointer;min-height:40px
+    }
+    .btn-rose{background:var(--rose);color:#fff}
+    .btn-gold{background:var(--gold);color:#2a200f}
+    .btn-outline{background:#fff;border:1px solid rgba(194,24,91,.24);color:var(--rose)}
+    .btn:focus-visible,.card:focus-visible,.pill:focus-visible{
+      outline:3px solid rgba(194,24,91,.4);outline-offset:2px
+    }
+    .hero{
+      padding:64px 4% 38px;
+      display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center
+    }
+    .hero-card{
+      min-height:320px;border-radius:32px;padding:26px;background:
+      linear-gradient(130deg,rgba(212,160,23,.18),rgba(194,24,91,.12)),
+      radial-gradient(circle at 84% 20%,#ffe0a0, transparent 34%);
+      box-shadow:var(--shadow)
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+      background:#fff;border:1px solid rgba(212,160,23,.35);color:var(--rose);font-weight:800;font-size:12px
+    }
+    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(38px,5.8vw,72px);line-height:.96;margin:12px 0;color:var(--rose)}
+    .hero p{max-width:650px;color:var(--muted);font-size:18px;line-height:1.8}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .hero .media{min-height:320px;border-radius:32px;background:url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80') center/cover;
+      box-shadow:var(--shadow);position:relative}
+    .hero .media::after{
+      content:"New Eid Collection";
+      position:absolute;left:18px;bottom:16px;background:#fff;color:var(--rose);
+      padding:10px 16px;border-radius:16px;font-weight:800;
+    }
+    .section{padding:42px 4%}
+    .section-title{font-size:34px;font-family:"Playfair Display",serif;color:var(--rose);margin-bottom:12px}
+    .sub{color:var(--muted);margin-bottom:16px}
+    .search-bar{display:flex;gap:10px;flex-wrap:wrap}
+    .search-bar input,.field input,.field textarea,.field select{
+      width:100%;padding:12px 13px;border-radius:14px;border:1px solid var(--line);background:#fff;
+      font:inherit
+    }
+    .filters{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .filters .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{
+      padding:9px 13px;border:1px solid #efdad6;border-radius:999px;background:#fff;font-weight:700;cursor:pointer
+    }
+    .pill.active{background:var(--rose);color:#fff;border-color:var(--rose)}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+    .product{
+      background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;
+      box-shadow:0 8px 28px rgba(44,44,44,.08)
+    }
+    .product .img{
+      height:205px;background:#f7edf3;display:grid;place-items:center;position:relative
+    }
+    .product img{width:100%;height:100%;object-fit:cover}
+    .product .badges{position:absolute;top:10px;left:10px;display:flex;gap:8px}
+    .product .discount{background:#fff;color:var(--rose);font-weight:800;padding:6px 10px;border-radius:12px;font-size:12px}
+    .p-body{padding:12px}
+    .p-body h3{font-size:16px;margin-bottom:8px}
+    .stars{font-size:13px;color:#c78f00;margin-bottom:8px}
+    .price{color:var(--rose);font-weight:900}
+    .old{color:#9b9097;text-decoration:line-through;margin-left:8px;font-weight:600}
+    .card-actions{display:flex;gap:8px;align-items:center;margin-top:10px}
+    .mini{flex:1;border:0;border-radius:12px;background:#fff;border:1px solid #edd2da;color:var(--rose);padding:10px;font-weight:700}
+    .mini:hover,.action-btn:hover{transform:translateY(-1px)}
+    .mini-buy{background:var(--gold);color:#2b220a}
+    .badge{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+    .layout{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+    .panel{background:#fff;border-radius:18px;padding:16px;border:1px solid var(--line)}
+    .panel h3{margin-bottom:10px}
+    .cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+    .cart-item img{width:66px;height:66px;object-fit:cover;border-radius:10px}
+    .small{font-size:13px;color:var(--muted)}
+    .qty{display:inline-flex;align-items:center;border:1px solid #e4d7d2;border-radius:12px;overflow:hidden}
+    .qty button{width:34px;height:34px;border:0;background:#fff;font-weight:800}
+    .qty span{min-width:30px;text-align:center}
+    .inline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .admin-area{background:#fff;border-radius:28px;padding:16px;border:1px solid var(--line);margin-top:22px}
+    .admin-login{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+    .field textarea{min-height:92px;resize:vertical}
+    .hidden{display:none!important}
+    .list{display:grid;gap:10px;margin-top:14px}
+    .row-item{border:1px solid var(--line);border-radius:14px;padding:12px}
+    .row-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+    .row-top .meta{color:var(--muted);font-size:13px}
+    .icon-btn{border:0;border-radius:12px;padding:8px 10px;background:#fff;border:1px solid #e7d5de;cursor:pointer}
+    .icon-btn.danger{border-color:#d88;color:#a60000}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .post{
+      background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 25px rgba(44,44,44,.06)
+    }
+    .post img{height:170px;object-fit:cover}
+    .post .pad{padding:14px}
+    .post small{color:var(--muted)}
+    .foot-note{
+      margin:34px 4% 14px;padding:14px;border-radius:16px;background:#f4e8ee;color:#4a4045
+    }
+    .chat-launch{
+      position:fixed;right:22px;bottom:22px;z-index:60;width:62px;height:62px;border-radius:50%;
+      border:0;background:linear-gradient(135deg,var(--rose),var(--rose-2));color:#fff;font-size:28px;box-shadow:0 14px 34px rgba(194,24,91,.4)
+    }
+    .chat{
+      position:fixed;right:22px;bottom:94px;width:min(390px,calc(100vw - 28px));height:min(620px,calc(100vh - 116px));
+      background:#fff;border:1px solid #ecd6de;border-radius:24px;display:flex;flex-direction:column;overflow:hidden;z-index:60;
+      box-shadow:var(--shadow);transform-origin:bottom right;transition:.24s
+    }
+    .chat.hidden{opacity:0;transform:scale(.94) translateY(20px);pointer-events:none}
+    .chat-head{
+      background:linear-gradient(135deg,var(--rose),#dc4b8d);color:#fff;padding:14px;display:flex;justify-content:space-between;gap:10px;align-items:center
+    }
+    .close{background:rgba(255,255,255,.25);border:0;color:#fff;border-radius:10px;padding:6px 12px;font-size:16px}
+    .message-wrap{flex:1;padding:12px;overflow:auto;background:#fff7fb}
+    .message{max-width:88%;padding:11px 13px;border-radius:16px;margin:0 0 10px;font-size:14px;line-height:1.5}
+    .bot{background:#fff;border:1px solid #efd7e0}
+    .user{margin-left:auto;background:var(--rose);color:#fff}
+    .quick{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+    .quick .btn{padding:8px 12px}
+    .chat-input{display:flex;padding:10px;gap:8px;border-top:1px solid #f1dce6}
+    .chat-input input{flex:1;padding:10px;border:1px solid #e6d5dc;border-radius:12px}
+    .chat-input .btn{border:0}
+    .typing{display:inline-flex;gap:4px}
+    .typing span{width:6px;height:6px;background:#bc7c93;border-radius:50%;animation:bounce 1s infinite}
+    .typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+    @keyframes bounce{40%{transform:translateY(-4px);opacity:.5}80%{transform:none;opacity:1}}
+    @media(max-width:1100px){
+      .grid{grid-template-columns:repeat(3,1fr)}
+      .layout{grid-template-columns:1fr}
+      .blog-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:760px){
+      .hero{grid-template-columns:1fr;padding-top:34px}
+      .hero .media{min-height:240px}
+      .grid{grid-template-columns:1fr 1fr}
+      .menu{display:none}
+      .brand{font-size:28px}
+      .section-title{font-size:29px}
+      .form-grid,.admin-login{grid-template-columns:1fr}
+      .blog-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:420px){
+      .nav{padding:12px 4%}
+      .hero-actions .btn{width:100%;text-align:center}
+      .chat{right:9px;bottom:90px;height:min(690px,calc(100vh - 102px))}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Free delivery above Rs. 2000<span> • </span><b>COD available</b><span> • </span>Wholesale open all over Pakistan</div>
+  <nav class="nav">
+    <a class="brand" href="#home">Nazuk<span>Paon</span></a>
+    <div class="menu">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#blog">Blog</a>
+      <a href="#admin">Admin</a>
+      <a href="#blog-admin">Blog CMS</a>
+    </div>
+    <div class="inline">
+      <span class="small" id="cartCount">Cart: 0</span>
+      <button class="btn btn-outline" id="adminToggleBtn" type="button">Admin Login</button>
+      <button class="btn btn-rose" id="openCheckout" type="button">Checkout</button>
+    </div>
+  </nav>
+
+  <header class="hero container" id="home">
+    <div>
+      <span class="eyebrow">Pakistani Ladies Footwear</span>
+      <h1>Har Qadam, Aapki Style</h1>
+      <p>Elegant sleepers, sandals, khussa, and bridal shoes for all seasons. This single file project now includes shop, cart, admin controls, and an editorial blog area.</p>
+      <div class="hero-actions">
+        <button class="btn btn-rose" id="heroShopNow" type="button">Shop Now</button>
+        <button class="btn btn-gold" id="heroAddSample" type="button">Add Sample Product</button>
+      </div>
+    </div>
+    <div class="media" role="img" aria-label="Featured footwear"></div>
+  </header>
+
+  <main>
+    <section class="section container" id="shop">
+      <h2 class="section-title">Shop</h2>
+      <p class="sub">Desktop + mobile compatible product board driven by one single data model.</p>
+      <div class="filters">
+        <div class="search-bar" style="flex:1;max-width:540px">
+          <input id="searchInput" placeholder="Search products..." aria-label="Search products" />
+          <button class="btn btn-outline" id="clearSearch" type="button">Clear</button>
+        </div>
+        <div class="tabs" id="categoryTabs" aria-label="Product categories">
+          <button class="pill active" data-category="All" type="button">All</button>
+          <button class="pill" data-category="Sleepers" type="button">Sleepers</button>
+          <button class="pill" data-category="Sandals" type="button">Sandals</button>
+          <button class="pill" data-category="Khussa" type="button">Khussa</button>
+          <button class="pill" data-category="Heels" type="button">Heels</button>
+          <button class="pill" data-category="Bridal" type="button">Bridal</button>
+        </div>
+      </div>
+      <div class="layout" style="margin-top:12px">
+        <section>
+          <div class="grid" id="productGrid"></div>
+        </section>
+        <aside class="panel" id="checkoutArea">
+          <h3>Cart Summary</h3>
+          <div id="cartItems" aria-live="polite"></div>
+          <p style="margin:12px 0 4px">Subtotal: <b id="subtotal">Rs. 0</b></p>
+          <p>Delivery: <b id="delivery">Rs. 150</b></p>
+          <p style="font-size:22px">Grand total: <b id="grand">Rs. 0</b></p>
+          <button class="btn btn-rose" style="width:100%" id="placeOrder" type="button">Place COD Order</button>
+          <button class="btn btn-outline" style="width:100%;margin-top:8px" id="waOrder" type="button">Order on WhatsApp</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section container" id="blog">
+      <h2 class="section-title">News & Blog</h2>
+      <p class="sub">Publish seasonal updates, care guides, style tips, and festive offers.</p>
+      <div class="blog-grid" id="blogGrid"></div>
+    </section>
+
+    <section class="section container" id="admin">
+      <h2 class="section-title">Admin: Product Management</h2>
+      <p class="sub">Add, edit, and delete products and their images directly from here.</p>
+      <div class="admin-area">
+        <div class="admin-login">
+          <div class="field" style="flex:1;min-width:220px">
+            <label for="adminPass">Admin passcode</label>
+            <input id="adminPass" type="password" placeholder="Set your local passcode (default: 1234)" />
+          </div>
+          <button class="btn btn-gold" id="setPassBtn" type="button">Set / Unlock</button>
+          <span id="adminStatus" class="small">Mode: Guest</span>
+        </div>
+
+        <form id="productForm" style="margin-top:16px">
+          <div class="form-grid">
+            <div class="field">
+              <label for="pName">Product Name</label>
+              <input id="pName" required />
+            </div>
+            <div class="field">
+              <label for="pCategory">Category</label>
+              <select id="pCategory">
+                <option>Sleepers</option>
+                <option>Sandals</option>
+                <option>Khussa</option>
+                <option>Heels</option>
+                <option>Bridal</option>
+                <option>Casual</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pPrice">Price (Rs.)</label>
+              <input id="pPrice" type="number" min="0" required />
+            </div>
+            <div class="field">
+              <label for="pOldPrice">Old Price (Rs.)</label>
+              <input id="pOldPrice" type="number" min="0" />
+            </div>
+            <div class="field">
+              <label for="pDesc">Short Description</label>
+              <textarea id="pDesc"></textarea>
+            </div>
+            <div class="field">
+              <label for="pImageUrl">Image URL</label>
+              <input id="pImageUrl" placeholder="https://..." />
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <input id="pImageFile" type="file" accept="image/*" />
+                <img id="pImagePreview" alt="Product image preview" style="width:58px;height:58px;border-radius:12px;border:1px solid var(--line);object-fit:cover;display:none" />
+              </div>
+            </div>
+          </div>
+          <div class="inline" style="margin-top:8px">
+            <button class="btn btn-rose" id="saveProductBtn" type="submit">Save Product</button>
+            <button class="btn btn-outline" type="button" id="clearProductForm">Clear</button>
+            <input type="hidden" id="editProductId" value="" />
+          </div>
+        </form>
+
+        <h3 style="margin-top:18px">Product List</h3>
+        <div class="list" id="adminProductList"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="blog-admin">
+      <h2 class="section-title">Admin: Blog CMS</h2>
+      <p class="sub">Add and edit posts without leaving this page.</p>
+      <div class="admin-area">
+        <form id="blogForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="bTitle">Post Title</label>
+              <input id="bTitle" required />
+            </div>
+            <div class="field">
+              <label for="bCategory">Category</label>
+              <input id="bCategory" value="News" />
+            </div>
+            <div class="field">
+              <label for="bSummary">Short Summary</label>
+              <textarea id="bSummary"></textarea>
+            </div>
+            <div class="field">
+              <label for="bContent">Full Content</label>
+              <textarea id="bContent"></textarea>
+            </div>
+            <div class="field">
+              <label for="bImageUrl">Featured Image URL</label>
+              <input id="bImageUrl" placeholder="https://..." />
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <input id="bImageFile" type="file" accept="image/*" />
+                <img id="bImagePreview" alt="Blog image preview" style="width:58px;height:58px;border-radius:12px;border:1px solid var(--line);object-fit:cover;display:none" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="bStatus">Status</label>
+              <select id="bStatus">
+                <option>Published</option>
+                <option>Draft</option>
+              </select>
+            </div>
+          </div>
+          <div class="inline" style="margin-top:8px">
+            <button class="btn btn-gold" type="submit">Save Post</button>
+            <button class="btn btn-outline" type="button" id="clearBlogForm">Clear</button>
+            <input type="hidden" id="editBlogId" value="" />
+          </div>
+        </form>
+      </div>
+      <div class="list" id="adminBlogList" style="margin-top:16px"></div>
+    </section>
+  </main>
+
+  <footer class="foot-note container">
+    Single-file project note: all data below is stored in your browser local storage for this file only.
+  </footer>
+
+  <button id="chatOpen" class="chat-launch" aria-label="Open recommendations chat" type="button">💬</button>
+  <section class="chat hidden" id="chatPanel" aria-label="AI style chatbot">
+    <div class="chat-head">
+      <div><strong>NazukPaon Stylist</strong><div class="small" style="color:#ffe7f0">Online stylist assistant</div></div>
+      <button id="chatClose" class="close" type="button">×</button>
+    </div>
+    <div id="chatMessages" class="message-wrap" aria-live="polite"></div>
+    <div class="chat-input">
+      <input id="chatManualInput" placeholder="Type your request (optional)" aria-label="Chat input" />
+      <button class="btn btn-gold" id="chatSend" type="button">Send</button>
+    </div>
+  </section>
+
+  <template id="productTemplate">
+    <article class="product">
+      <div class="img">
+        <img alt="">
+        <div class="badges"></div>
+      </div>
+      <div class="p-body">
+        <h3></h3>
+        <div class="stars">★★★★★ <span class="ratingValue"></span></div>
+        <div class="price"></div>
+        <div class="badge"></div>
+        <div class="card-actions">
+          <button class="mini mini-buy" type="button">Add to Cart</button>
+          <button class="mini copy-link" type="button">Copy</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    const STORAGE = 'nazukpaon_onefile_data_v1';
+    const DEFAULT_PASSCODE = '1234';
+
+    const defaults = {
+      passcode: DEFAULT_PASSCODE,
+      cart: [],
+      products: [
+        { id: cryptoId(), name:'Rose Gold Bridal Heels', category:'Heels', desc:'Soft cushioned bride-ready heel for barat and walima.', price:3499, old:4999, image:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80', rating:4.9, badge:'30% OFF' },
+        { id: cryptoId(), name:'Soft Khussa Set', category:'Khussa', desc:'Ethnic craft-inspired block design.', price:2850, old:3299, image:'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80', rating:4.8 },
+        { id: cryptoId(), name:'Everyday Sandals', category:'Sandals', desc:'Daily wear sandal with comfort insole.', price:2250, old:2850, image:'https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=900&q=80', rating:4.7 },
+        { id: cryptoId(), name:'Casual Sleepers', category:'Sleepers', desc:'Comfort-first option for home and casual events.', price:1650, old:1999, image:'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80', rating:4.6 },
+        { id: cryptoId(), name:'Pearl Bridal Flats', category:'Bridal', desc:'Soft sole and breathable upper for long celebrations.', price:3799, old:4499, image:'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=900&q=80', rating:4.7, badge:'New' },
+        { id: cryptoId(), name:'Floral Office Flats', category:'Casual', desc:'Elegant office and office-party essential.', price:1890, old:2350, image:'https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=900&q=80', rating:4.4 },
+      ],
+      posts: [
+        { id: cryptoId(), title:'Eid Arrival Guide: What to Pair with Khussa', category:'Style', summary:'Learn the best outfit pairings for each major Pakistani occasion.', content:'Wear floral or embroidered khussa with neutral dupattas for Mehndi and Eid.', image:'https://images.unsplash.com/photo-1595341888016-a392ef81b7de?auto=format&fit=crop&w=900&q=80', status:'Published', createdAt:'2026-06-01' },
+        { id: cryptoId(), title:'Care Instructions for Leather Footwear', category:'Care', summary:'Keep your pair long-lasting with simple maintenance habits.', content:'Clean with dry brush weekly and avoid water, then apply cream monthly.', image:'https://images.unsplash.com/photo-1543508282-6319a3e2621f?auto=format&fit=crop&w=900&q=80', status:'Published', createdAt:'2026-05-22' }
+      ]
+    };
+
+    const state = loadState();
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
+
+    const els = {
+      productGrid: $('#productGrid'),
+      cartItems: $('#cartItems'),
+      subtotal: $('#subtotal'),
+      grand: $('#grand'),
+      cartCount: $('#cartCount'),
+      blogGrid: $('#blogGrid'),
+      blogAdminList: $('#adminBlogList'),
+      adminProductList: $('#adminProductList'),
+      productTemplate: $('#productTemplate'),
+      categoryTabs: $('#categoryTabs'),
+      searchInput: $('#searchInput'),
+      adminStatus: $('#adminStatus'),
+      adminPass: $('#adminPass'),
+      editProductId: $('#editProductId'),
+      editBlogId: $('#editBlogId')
+    };
+
+    let filterCategory = 'All';
+    let isAdmin = false;
+    let chatState = { step: 'start', occasion: '', color: '', size: '', budget: '' };
+
+    init();
+
+    function init(){
+      syncPasscode();
+      renderAll();
+      bindUi();
+      setDelivery();
+      renderRecommendationsInitial();
+      renderChat();
+    }
+
+    function loadState(){
+      try{
+        const data = JSON.parse(localStorage.getItem(STORAGE));
+        if(!data) return defaults;
+        return {
+          ...defaults,
+          ...data,
+          products: data.products?.length ? data.products : defaults.products,
+          posts: data.posts?.length ? data.posts : defaults.posts,
+          passcode: data.passcode || DEFAULT_PASSCODE
+        };
+      }catch{
+        return defaults;
+      }
+    }
+    function saveState(){
+      localStorage.setItem(STORAGE, JSON.stringify(state));
+    }
+    function syncPasscode(){
+      const key = localStorage.getItem('nazukpaon_passcode');
+      if(key){ state.passcode = key; }
+      else localStorage.setItem('nazukpaon_passcode', state.passcode || DEFAULT_PASSCODE);
+    }
+    function currency(n){ return `Rs. ${Number(n || 0).toLocaleString('en-PK')}`; }
+    function cryptoId(){ return 'id-' + Math.random().toString(36).slice(2, 11); }
+
+    function renderAll(){
+      renderProducts();
+      renderCart();
+      renderBlog();
+      renderAdminPanel();
+      renderBlogAdminList();
+      setCartCount();
+    }
+    function renderProducts(){
+      const keyword = els.searchInput.value.toLowerCase().trim();
+      const products = state.products.filter(p => {
+        const inCategory = filterCategory === 'All' ? true : p.category === filterCategory;
+        const inSearch = `${p.name} ${p.desc} ${p.category}`.toLowerCase().includes(keyword);
+        return inCategory && inSearch;
+      });
+      els.productGrid.innerHTML = '';
+      if(!products.length){
+        els.productGrid.innerHTML = '<p class="small">No products found for this filter.</p>';
+        return;
+      }
+      products.forEach((p, i) => {
+        const node = els.productTemplate.content.firstElementChild.cloneNode(true);
+        node.querySelector('img').src = p.image;
+        node.querySelector('img').alt = p.name;
+        node.querySelector('h3').textContent = p.name;
+        node.querySelector('.ratingValue').textContent = ` ${p.rating} / 5`;
+        const price = node.querySelector('.price');
+        price.textContent = currency(p.price);
+        if(p.old){
+          const old = document.createElement('small');
+          old.className = 'old';
+          old.textContent = currency(p.old);
+          price.appendChild(old);
+        }
+        node.querySelector('.badge').textContent = p.desc;
+        if(p.badge){
+          const b = document.createElement('span');
+          b.className = 'discount';
+          b.textContent = p.badge;
+          node.querySelector('.badges').appendChild(b);
+        }
+        const [buy, copyBtn] = node.querySelectorAll('.mini');
+        buy.onclick = () => addToCart(p.id);
+        copyBtn.onclick = () => copyText(`${p.name} - ${currency(p.price)}`);
+        els.productGrid.appendChild(node);
+      });
+    }
+
+    function renderCart(){
+      if(!state.cart.length){
+        els.cartItems.innerHTML = '<p class="small">Cart is empty.</p>';
+        els.subtotal.textContent = currency(0);
+        els.grand.textContent = currency(150);
+        return;
+      }
+      els.cartItems.innerHTML = '';
+      let total = 0;
+      state.cart.forEach(item => {
+        const p = state.products.find(x => x.id === item.id);
+        if(!p) return;
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `<img src="${p.image}" alt="${p.name}">
+          <div style="flex:1">
+            <b>${p.name}</b>
+            <div class="small">${p.category}</div>
+            <div class="small">Rs. ${p.price} x ${item.qty}</div>
+            <div class="small" style="margin-top:6px">
+              <button class="qty-btn" data-id="${p.id}" data-op="-">-</button>
+              <span class="qty">${item.qty}</span>
+              <button class="qty-btn" data-id="${p.id}" data-op="+">+</button>
+              <button class="icon-btn danger" data-id="${p.id}" data-op="remove" style="margin-left:8px">Delete</button>
+            </div>
+          </div>`;
+        els.cartItems.appendChild(row);
+        total += p.price * item.qty;
+      });
+      els.cartItems.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.type = 'button';
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-id');
+          const op = btn.getAttribute('data-op');
+          if(op === '-') adjustCart(id, -1);
+          if(op === '+') adjustCart(id, 1);
+          if(op === 'remove') removeFromCart(id);
+          renderCart();
+          setCartCount();
+        };
+      });
+      els.subtotal.textContent = currency(total);
+      els.grand.textContent = currency(total + 150);
+    }
+    function setDelivery(){
+      let cartMode = 'COD';
+      if($('#openCheckout')){
+        $('#openCheckout').addEventListener('click', () => {
+          alert(`Checkout: Rs. ${els.grand.textContent} | Payment method: ${cartMode}`);
+        });
+      }
+      if($('#placeOrder')){
+        $('#placeOrder').addEventListener('click', () => {
+          if(!state.cart.length){ alert('Cart is empty. Add a product first.'); return; }
+          alert('Order placed successfully (demo). Our team will contact you on WhatsApp.');
+          state.cart = [];
+          saveState();
+          renderCart();
+          setCartCount();
+        });
+      }
+      if($('#waOrder')){
+        $('#waOrder').addEventListener('click', () => {
+          const msg = encodeURIComponent(`Assalam o Alaikum! I want to place this order from your website: ${cartSummaryText()}`);
+          window.open(`https://wa.me/923001234567?text=${msg}`, '_blank');
+        });
+      }
+    }
+    function cartSummaryText(){
+      if(!state.cart.length) return 'Cart is empty';
+      return state.cart.map(i => {
+        const p = state.products.find(x => x.id === i.id);
+        return `${p?.name || 'Product'} x ${i.qty}`;
+      }).join(', ');
+    }
+
+    function addToCart(productId){
+      const existing = state.cart.find(i => i.id === productId);
+      if(existing) existing.qty += 1;
+      else state.cart.push({ id: productId, qty: 1 });
+      saveState();
+      renderCart();
+      setCartCount();
+      animateBadge();
+    }
+    function adjustCart(productId, diff){
+      const existing = state.cart.find(i => i.id === productId);
+      if(!existing) return;
+      existing.qty = Math.max(1, existing.qty + diff);
+      saveState();
+    }
+    function removeFromCart(productId){
+      state.cart = state.cart.filter(i => i.id !== productId);
+      saveState();
+    }
+    function setCartCount(){
+      const qty = state.cart.reduce((acc, item) => acc + item.qty, 0);
+      els.cartCount.textContent = `Cart: ${qty}`;
+    }
+    function animateBadge(){ els.cartCount.style.transform='scale(1.16)'; setTimeout(()=>els.cartCount.style.transform='none',180); }
+
+    function renderBlog(){
+      const livePosts = state.posts.filter(p => p.status === 'Published');
+      els.blogGrid.innerHTML = '';
+      livePosts.forEach(post => {
+        const card = document.createElement('article');
+        card.className = 'post';
+        card.innerHTML = `<img src="${post.image}" alt="${post.title}">
+          <div class="pad">
+            <small>${post.category} • ${new Date(post.createdAt).toLocaleDateString('en-PK')}</small>
+            <h3 style="margin:10px 0">${post.title}</h3>
+            <p style="color:var(--muted)">${post.summary}</p>
+            <button class="btn btn-outline" style="margin-top:12px" type="button">Read more</button>
+          </div>`;
+        els.blogGrid.appendChild(card);
+      });
+      if(!livePosts.length){
+        els.blogGrid.innerHTML = '<p class="small">No published posts yet.</p>';
+      }
+    }
+    function renderAdminPanel(){
+      const sorted = [...state.products].sort((a,b)=>a.name.localeCompare(b.name));
+      els.adminProductList.innerHTML = '';
+      sorted.forEach((p) => {
+        const row = document.createElement('div');
+        row.className = 'row-item';
+        row.innerHTML = `<div class="row-top">
+          <div>
+            <b>${p.name}</b>
+            <div class="meta">${p.category} • ${currency(p.price)}${p.old ? ' (was ' + currency(p.old) + ')' : ''}</div>
+          </div>
+          <div class="inline">
+            <button class="icon-btn" data-id="${p.id}" data-action="edit">Edit</button>
+            <button class="icon-btn danger" data-id="${p.id}" data-action="delete">Delete</button>
+          </div>
+        </div>`;
+        row.querySelector('[data-action="edit"]').onclick = () => {
+          if(!isAdmin) return alert('Admin mode only');
+          fillProductForm(p);
+        };
+        row.querySelector('[data-action="delete"]').onclick = () => {
+          if(!isAdmin) return alert('Admin mode only');
+          if(confirm(`Delete ${p.name}?`)){
+            state.products = state.products.filter(x => x.id !== p.id);
+            saveState();
+            renderAll();
+          }
+        };
+        els.adminProductList.appendChild(row);
+      });
+      if(!sorted.length) els.adminProductList.innerHTML = '<p class="small">No products found.</p>';
+    }
+
+    function renderBlogAdminList(){
+      const list = [...state.posts].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+      els.blogAdminList.innerHTML = '';
+      list.forEach(post => {
+        const row = document.createElement('div');
+        row.className = 'row-item';
+        row.innerHTML = `<div class="row-top">
+          <div>
+            <b>${post.title}</b>
+            <div class="meta">${post.category} • ${post.status} • ${new Date(post.createdAt).toLocaleDateString('en-PK')}</div>
+          </div>
+          <div class="inline">
+            <button class="icon-btn" data-id="${post.id}" data-action="edit">Edit</button>
+            <button class="icon-btn danger" data-id="${post.id}" data-action="delete">Delete</button>
+          </div>
+        </div>
+        <p class="small" style="margin-top:6px">${post.summary || 'No summary'}</p>`;
+        row.querySelector('[data-action="edit"]').onclick = () => {
+          if(!isAdmin) return alert('Admin mode only');
+          fillBlogForm(post);
+        };
+        row.querySelector('[data-action="delete"]').onclick = () => {
+          if(!isAdmin) return alert('Admin mode only');
+          if(confirm(`Delete post "${post.title}"?`)){
+            state.posts = state.posts.filter(x => x.id !== post.id);
+            saveState();
+            renderAll();
+          }
+        };
+        els.blogAdminList.appendChild(row);
+      });
+      if(!list.length) els.blogAdminList.innerHTML = '<p class="small">No posts yet.</p>';
+    }
+
+    function bindUi(){
+      els.categoryTabs.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pill');
+        if(!btn) return;
+        filterCategory = btn.dataset.category;
+        els.categoryTabs.querySelector('.active').classList.remove('active');
+        btn.classList.add('active');
+        renderProducts();
+      });
+      els.searchInput.addEventListener('input', renderProducts);
+      $('#clearSearch').addEventListener('click', ()=>{ els.searchInput.value=''; renderProducts(); });
+
+      $('#heroShopNow').addEventListener('click', () => {
+        document.getElementById('shop').scrollIntoView({ behavior:'smooth' });
+      });
+
+      $('#heroAddSample').addEventListener('click', () => {
+        state.products.push({
+          id: cryptoId(),
+          name:'New Sample Sandal',
+          category:'Sandals',
+          desc:'Auto-added sample product.',
+          price:1999,
+          old:2499,
+          image:'https://images.unsplash.com/photo-1528701800489-20be3cc4d5a2?auto=format&fit=crop&w=900&q=80',
+          rating:4.4,
+          badge:'New'
+        });
+        saveState();
+        renderProducts();
+        renderAdminPanel();
+      });
+
+      $('#adminToggleBtn').addEventListener('click', () => {
+        const entered = prompt('Enter admin passcode (default: 1234):', state.passcode || DEFAULT_PASSCODE) || '';
+        if(entered === state.passcode){
+          isAdmin = !isAdmin;
+          els.adminStatus.textContent = isAdmin ? 'Mode: Admin' : 'Mode: Guest';
+          $('#adminToggleBtn').textContent = isAdmin ? 'Sign Out Admin' : 'Admin Login';
+          alert(isAdmin ? 'Admin mode enabled.' : 'Admin mode disabled.');
+        } else if (entered) {
+          alert('Wrong passcode');
+        }
+      });
+      $('#setPassBtn').addEventListener('click', () => {
+        const val = els.adminPass.value.trim();
+        if(!val || val.length < 3){
+          alert('Passcode must be at least 3 characters.');
+          return;
+        }
+        state.passcode = val;
+        localStorage.setItem('nazukpaon_passcode', val);
+        alert('Passcode updated.');
+      });
+
+      $('#productForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!isAdmin){ alert('Admin mode only'); return; }
+        const id = els.editProductId.value;
+        const payload = {
+          name: $('#pName').value.trim(),
+          category: $('#pCategory').value,
+          price: Number($('#pPrice').value),
+          old: Number($('#pOldPrice').value || 0),
+          desc: $('#pDesc').value.trim(),
+          rating: 4.6,
+          image: $('#pImagePreview').style.display === 'none' ? ($('#pImageUrl').value.trim() || state.products[0].image) : $('#pImagePreview').src
+        };
+        if(!payload.name || !payload.price){ alert('Please fill name and price'); return; }
+        if(id){
+          const idx = state.products.findIndex(x=>x.id===id);
+          if(idx > -1) state.products[idx] = { ...state.products[idx], ...payload };
+        }else{
+          payload.id = cryptoId();
+          payload.badge = payload.badge || '';
+          state.products.push(payload);
+        }
+        clearProductForm();
+        saveState();
+        renderAll();
+      });
+      $('#clearProductForm').addEventListener('click', clearProductForm);
+
+      $('#blogForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!isAdmin){ alert('Admin mode only'); return; }
+        const id = els.editBlogId.value;
+        const payload = {
+          title: $('#bTitle').value.trim(),
+          category: $('#bCategory').value.trim() || 'News',
+          summary: $('#bSummary').value.trim(),
+          content: $('#bContent').value.trim(),
+          image: $('#bImagePreview').style.display === 'none' ? ($('#bImageUrl').value.trim() || 'https://images.unsplash.com/photo-1595341888016-a392ef81b7de?auto=format&fit=crop&w=900&q=80') : $('#bImagePreview').src,
+          status: $('#bStatus').value,
+          createdAt: new Date().toISOString().slice(0,10)
+        };
+        if(!payload.title){ alert('Post title is required'); return; }
+        if(id){
+          const idx = state.posts.findIndex(x=>x.id===id);
+          if(idx > -1) state.posts[idx] = { ...state.posts[idx], ...payload };
+        }else{
+          payload.id = cryptoId();
+          state.posts.unshift(payload);
+        }
+        clearBlogForm();
+        saveState();
+        renderAll();
+      });
+      $('#clearBlogForm').addEventListener('click', clearBlogForm);
+
+      $('#pImageFile').addEventListener('change', (e)=>previewImage(e.target, '#pImagePreview'));
+      $('#bImageFile').addEventListener('change', (e)=>previewImage(e.target, '#bImagePreview'));
+    }
+
+    function fillProductForm(product){
+      els.editProductId.value = product.id;
+      $('#pName').value = product.name;
+      $('#pCategory').value = product.category;
+      $('#pPrice').value = product.price;
+      $('#pOldPrice').value = product.old || '';
+      $('#pDesc').value = product.desc || '';
+      $('#pImageUrl').value = product.image || '';
+      $('#pImagePreview').src = product.image || '';
+      $('#pImagePreview').style.display = product.image ? 'block' : 'none';
+      window.location.href = '#admin';
+    }
+    function fillBlogForm(post){
+      els.editBlogId.value = post.id;
+      $('#bTitle').value = post.title;
+      $('#bCategory').value = post.category;
+      $('#bSummary').value = post.summary || '';
+      $('#bContent').value = post.content || '';
+      $('#bImageUrl').value = post.image || '';
+      $('#bImagePreview').src = post.image || '';
+      $('#bImagePreview').style.display = post.image ? 'block' : 'none';
+      $('#bStatus').value = post.status || 'Draft';
+      window.location.href = '#blog-admin';
+    }
+    function clearProductForm(){
+      els.editProductId.value = '';
+      $('#pName').value = '';
+      $('#pPrice').value = '';
+      $('#pOldPrice').value = '';
+      $('#pDesc').value = '';
+      $('#pImageUrl').value = '';
+      $('#pImageFile').value = '';
+      $('#pImagePreview').style.display = 'none';
+      $('#pImagePreview').src = '';
+    }
+    function clearBlogForm(){
+      els.editBlogId.value = '';
+      $('#bTitle').value = '';
+      $('#bCategory').value = 'News';
+      $('#bSummary').value = '';
+      $('#bContent').value = '';
+      $('#bImageUrl').value = '';
+      $('#bImageFile').value = '';
+      $('#bStatus').value = 'Published';
+      $('#bImagePreview').style.display = 'none';
+      $('#bImagePreview').src = '';
+    }
+    function copyText(text){
+      navigator.clipboard?.writeText ? navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard');
+      }).catch(() => {
+        fallbackCopy(text);
+      }) : fallbackCopy(text);
+    }
+    function fallbackCopy(text){
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      alert('Copied');
+    }
+    function previewImage(input, selector){
+      const file = input.files?.[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = document.querySelector(selector);
+        img.src = reader.result;
+        img.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // --- Chat widget ---
+    const chatPanel = $('#chatPanel');
+    const chatMessages = $('#chatMessages');
+    const manual = $('#chatManualInput');
+
+    function renderChat(){
+      writeBot('Assalam o Alaikum! I can help you pick Pakistani footwear by occasion, color, budget and size.');
+      askOccasion();
+    }
+    function addMsg(text, role='bot'){
+      const wrap = document.createElement('div');
+      wrap.className = `message ${role}`;
+      wrap.textContent = text;
+      chatMessages.appendChild(wrap);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return wrap;
+    }
+    function writeBot(text){ addMsg(text, 'bot'); }
+    function writeUser(text){ addMsg(text, 'user'); }
+    function typing(cb){
+      const t = addMsg('...');
+      setTimeout(() => {
+        t.remove();
+        cb();
+      }, 420);
+    }
+    function quickRow(items, cb){
+      const q = document.createElement('div');
+      q.className = 'quick';
+      items.forEach(item => {
+        const b = document.createElement('button');
+        b.className = 'btn';
+        b.type = 'button';
+        b.textContent = item;
+        b.onclick = () => {
+          writeUser(item);
+          q.remove();
+          cb(item);
+        };
+        q.appendChild(b);
+      });
+      chatMessages.appendChild(q);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function askOccasion(){
+      writeBot('Kaunsa occasion hai?');
+      chatState.step = 'occasion';
+      quickRow(['Mehndi', 'Barat', 'Walima', 'Office', 'Casual', 'Eid'], (val) => {
+        chatState.occasion = val;
+        typing(() => askColor());
+      });
+    }
+    function askColor(){
+      writeBot('Aapke outfit ka color kya hai?');
+      const row = document.createElement('div');
+      row.className = 'input-row';
+      row.innerHTML = `<input id="chatColor" value="Rose" /><button class="btn btn-gold" type="button">Next</button>`;
+      chatMessages.appendChild(row);
+      row.querySelector('button').onclick = () => {
+        chatState.color = row.querySelector('input').value.trim() || 'Rose';
+        writeUser(chatState.color);
+        row.remove();
+        typing(() => askSize());
+      };
+    }
+    function askSize(){
+      writeBot('UK shoe size?');
+      const row = document.createElement('div');
+      row.className = 'input-row';
+      row.innerHTML = `<select id="chatSize">
+          <option>UK 3</option><option>UK 4</option><option>UK 5</option><option>UK 6</option><option>UK 7</option><option>UK 8</option>
+        </select><button class="btn btn-gold" type="button">Next</button>`;
+      chatMessages.appendChild(row);
+      row.querySelector('button').onclick = () => {
+        chatState.size = row.querySelector('select').value;
+        writeUser(chatState.size);
+        row.remove();
+        typing(() => askBudget());
+      };
+    }
+    function askBudget(){
+      writeBot('Budget range choose karein.');
+      quickRow(['Under 1500', '1500-3000', '3000+'], val => {
+        chatState.budget = val;
+        typing(() => showRecommendations());
+      });
+    }
+    function showRecommendations(){
+      writeBot(`Great! ${chatState.occasion} + ${chatState.color} + ${chatState.size} for ${chatState.budget}`);
+      const parsedMax = chatState.budget === 'Under 1500' ? 1500 : chatState.budget === '1500-3000' ? 3000 : 999999;
+      const picks = state.products.filter(p => p.price <= parsedMax).slice(0, 3);
+      if(!picks.length){
+        writeBot('No exact match found. Showing best available options.');
+      }
+      picks.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'products';
+        row.innerHTML = `<div class="product">
+          <img src="${p.image}" alt="${p.name}">
+          <div style="padding:10px">
+            <h4>${p.name}</h4>
+            <div class="small">For ${chatState.occasion} • Size ${chatState.size}</div>
+            <div class="price">${currency(p.price)}</div>
+            <button class="add-cart" type="button">Add to Cart</button>
+            <button class="btn btn-outline wa" type="button" style="margin-top:6px;width:100%">Order on WhatsApp</button>
+          </div>
+        </div>`;
+        row.querySelector('.add-cart').onclick = () => { addToCart(p.id); writeBot(`${p.name} added to cart.`); };
+        row.querySelector('.wa').onclick = () => {
+          const text = encodeURIComponent(`I want to order: ${p.name} (${chatState.occasion}, ${chatState.size}, ${chatState.color})`);
+          window.open(`https://wa.me/923001234567?text=${text}`, '_blank');
+        };
+        chatMessages.appendChild(row);
+      });
+      const end = document.createElement('div');
+      end.className = 'small';
+      end.style.marginTop = '6px';
+      end.textContent = 'Type "again" in chat to restart.';
+      chatMessages.appendChild(end);
+      chatState.step = 'done';
+    }
+
+    $('#chatOpen').onclick = () => { chatPanel.classList.toggle('hidden'); };
+    $('#chatClose').onclick = () => { chatPanel.classList.add('hidden'); };
+    $('#chatSend').onclick = () => {
+      const text = manual.value.trim();
+      if(!text) return;
+      writeUser(text);
+      manual.value = '';
+      if(text.toLowerCase() === 'again'){
+        typing(() => {
+          chatMessages.innerHTML = '';
+          chatState = { step:'start', occasion:'', color:'', size:'', budget:'' };
+          renderChat();
+        });
+        return;
+      }
+      if(chatState.step === 'done'){
+        writeBot('Tell me "again" to start a new recommendation flow.');
+      }else{
+        writeBot('You can continue by selecting options above.');
+      }
+    };
+  </script>
+</body>
+</html>

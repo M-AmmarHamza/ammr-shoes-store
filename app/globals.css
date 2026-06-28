@@ -1,0 +1,269 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", "Inter", "Avenir Next", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  background: linear-gradient(135deg, #f0f9ff, #eef2ff, #eef7ff);
+  padding: 24px;
+}
+
+.shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 12px;
+}
+
+.lead {
+  margin-top: 0;
+  margin-bottom: 22px;
+  color: #334155;
+}
+
+.dropzone {
+  border: 2px dashed #94a3b8;
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+}
+
+.dropzone-copy {
+  font-size: 18px;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.browse-btn,
+.primary-btn,
+.clear-btn,
+.download-btn,
+.thumb-meta button {
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.browse-btn:hover,
+.primary-btn:hover,
+.clear-btn:hover,
+.download-btn:hover,
+.thumb-meta button:hover {
+  transform: translateY(-1px);
+}
+
+.browse-btn {
+  display: inline-block;
+  margin-top: 8px;
+  background: #0891b2;
+  color: white;
+}
+
+.browse-btn input {
+  display: none;
+}
+
+.controls {
+  margin: 20px 0;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+label {
+  font-weight: 600;
+}
+
+.field select,
+.field input[type="number"],
+input[type="number"] {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: #ffffffcc;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  grid-column: 1 / -1;
+  font-weight: 500;
+}
+
+.file-actions {
+  margin: 12px 0 2px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.clear-btn {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.error {
+  color: #b91c1c;
+  margin-top: 16px;
+  background: #fee2e2;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.thumb-card {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.thumb-card img {
+  width: 110px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.thumb-meta h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.thumb-meta p {
+  margin: 0 0 8px;
+  color: #475569;
+}
+
+.thumb-meta button {
+  background: #f43f5e;
+  color: white;
+}
+
+.result-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.result-card {
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 14px;
+  background: #ffffffd1;
+}
+
+.result-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-wrap: balance;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 24px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.comparison figure {
+  margin: 0;
+}
+
+.comparison img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.comparison figcaption {
+  font-size: 12px;
+  color: #475569;
+  margin-top: 6px;
+}
+
+.arrow {
+  text-align: center;
+  font-size: 20px;
+  color: #0ea5e9;
+}
+
+.result-stats {
+  margin: 12px 0;
+  display: grid;
+  gap: 6px;
+  color: #334155;
+}
+
+.download-btn {
+  text-decoration: none;
+  display: inline-block;
+  background: #0f766e;
+  color: #ffffff;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 12px;
+  }
+
+  .thumb-card {
+    grid-template-columns: 1fr;
+  }
+
+  .thumb-card img {
+    width: 100%;
+    height: auto;
+  }
+}

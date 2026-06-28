@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codyvent | ABC Catering Services</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+      :root {
+        --bg: #fffdf9;
+        --surface: #ffffff;
+        --text: #1f1a17;
+        --muted: #675f57;
+        --line: #eadfcf;
+        --gold: #b78a3e;
+        --gold-soft: #e5d0a3;
+        --gold-dark: #8e6a2a;
+        --card-shadow: 0 16px 42px rgba(111, 84, 34, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #fffdf8 0%, #fffaf2 100%);
+        color: var(--text);
+        font-family: "Manrope", system-ui, -apple-system, Segoe UI, sans-serif;
+        line-height: 1.45;
+      }
+      a {
+        color: inherit;
+      }
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+      .page {
+        width: min(1360px, 100% - 40px);
+        margin: 0 auto;
+        padding: 24px 0 120px;
+      }
+
+      .top-shell {
+        position: relative;
+      }
+      .brandbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 18px;
+        padding: 10px 16px;
+        border: 1px solid rgba(183, 138, 62, 0.2);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: 0 10px 24px rgba(75, 55, 22, 0.08);
+      }
+      .brandbar .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Cormorant Garamond", serif;
+      }
+      .logo-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #f6e6bc, #c5a060);
+        color: #3f2c0e;
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .brandbar h1 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2.3vw, 1.9rem);
+        font-weight: 600;
+      }
+      .trusted {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--gold-soft);
+        color: var(--gold-dark);
+        font-size: 13px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 100px;
+        background: rgba(233, 202, 122, 0.14);
+      }
+      .hero {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        min-height: 420px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid rgba(183, 138, 62, 0.22);
+      }
+      .hero-media {
+        position: relative;
+        min-height: 440px;
+      }
+      .hero-media::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.45) 12%,
+          rgba(0, 0, 0, 0.2) 45%,
+          rgba(0, 0, 0, 0.05) 70%
+        );
+        z-index: 1;
+      }
+      .hero-media img {
+        height: 440px;
+        width: 100%;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+        align-items: end;
+        padding: 28px 32px;
+        gap: 12px;
+        color: #fff;
+      }
+      .hero-content {
+        padding: 0 6px 8px;
+      }
+      .hero-top {
+        display: inline-flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.36);
+        padding: 6px 12px;
+        border-radius: 999px;
+        backdrop-filter: blur(2px);
+      }
+      .pill.popular {
+        background: #d4af37;
+        color: #2f240d;
+        border-color: #d4af37;
+        font-weight: 700;
+      }
+      .hero h2 {
+        margin: 0 0 10px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 1;
+      }
+      .hero-meta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+        font-size: 14px;
+        color: #f5f0e4;
+      }
+      .badge {
+        border-radius: 9px;
+        padding: 7px 11px;
+        border: 1px solid rgba(255, 255, 255, 0.48);
+        background: rgba(0, 0, 0, 0.2);
+        font-size: 13px;
+      }
+      .rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 700;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .btn {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 20px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition: 0.25s transform, 0.25s opacity;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #25d366, #1ebc58);
+        color: #fff;
+      }
+      .btn-dark {
+        background: #fff;
+        color: #1b140f;
+      }
+      .btn-gold {
+        background: linear-gradient(135deg, #f7d08a, #d8a73a);
+        color: #1e180e;
+      }
+      .hero-side {
+        justify-self: end;
+        align-self: end;
+        margin: 0 0 20px;
+      }
+      .logo-chip {
+        margin-bottom: 12px;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+      .floating-box {
+        background: rgba(255, 255, 255, 0.96);
+        color: var(--text);
+        border-radius: 14px;
+        padding: 16px;
+        box-shadow: var(--card-shadow);
+        width: min(280px, 100%);
+      }
+      .floating-box h3 {
+        margin: 2px 0 6px;
+        color: var(--gold-dark);
+        font-family: "Cormorant Garamond", serif;
+      }
+      .floating-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .layout {
+        margin-top: 26px;
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 24px;
+      }
+
+      .section {
+        background: var(--surface);
+        border-radius: 20px;
+        border: 1px solid rgba(183, 138, 62, 0.16);
+        box-shadow: var(--card-shadow);
+        padding: 22px 22px 24px;
+        margin-bottom: 22px;
+      }
+      .section > h2 {
+        margin: 0 0 14px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.95rem;
+      }
+      .section h3 {
+        margin: 4px 0 10px;
+        font-family: "Cormorant Garamond", serif;
+      }
+      .section p {
+        color: var(--muted);
+      }
+      .section-lead {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 2px 0 16px;
+        color: var(--muted);
+      }
+      .section-lead strong {
+        color: var(--text);
+      }
+      .card-grid {
+        display: grid;
+        gap: 14px;
+      }
+      .quick-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .info-card {
+        border: 1px solid rgba(183, 138, 62, 0.2);
+        border-radius: 14px;
+        padding: 14px;
+        background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%);
+      }
+      .info-card .label {
+        font-size: 12px;
+        color: var(--gold-dark);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .info-card .value {
+        font-weight: 700;
+        font-size: 1.05rem;
+      }
+      .info-card ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .gallery {
+        columns: 3 290px;
+        column-gap: 16px;
+      }
+      .gallery-card {
+        break-inside: avoid;
+        margin-bottom: 16px;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(183, 138, 62, 0.18);
+        box-shadow: 0 14px 28px rgba(93, 65, 23, 0.08);
+        background: #f9f2e1;
+      }
+      .gallery-card img {
+        aspect-ratio: 4 / 3;
+        min-height: 190px;
+      }
+      .gallery-card.video img {
+        aspect-ratio: 16/9;
+      }
+      .gallery-caption {
+        position: absolute;
+        inset: auto 0 0 0;
+        padding: 8px 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.72));
+      }
+      .play-badge {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid #fff5;
+        color: #fff;
+        border-radius: 999px;
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+      }
+
+      .packages {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .package-card {
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        padding: 18px;
+        position: relative;
+        background: linear-gradient(165deg, #fff9ee, #ffffff);
+      }
+      .package-card.popular {
+        border-width: 2px;
+        border-color: var(--gold);
+        transform: translateY(-4px);
+      }
+      .package-card.popular::after {
+        content: "Most Popular";
+        position: absolute;
+        top: -12px;
+        right: 14px;
+        background: linear-gradient(135deg, #f3cd77, #be8e2e);
+        color: #2a1f11;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+      }
+      .price {
+        font-size: 1.8rem;
+        margin: 8px 0;
+        font-weight: 800;
+        color: var(--gold-dark);
+      }
+      .package-card ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .food-card {
+        border: 1px solid rgba(183, 138, 62, 0.18);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .food-card img {
+        height: 150px;
+      }
+      .food-content {
+        padding: 11px;
+      }
+      .food-title {
+        margin: 0 0 6px;
+        font-size: 1rem;
+        font-family: "Cormorant Garamond", serif;
+      }
+      .food-content p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .reviews-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .reviews-summary strong {
+        font-size: 2.2rem;
+        font-family: "Cormorant Garamond", serif;
+        color: var(--gold-dark);
+      }
+      .review-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .review {
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        gap: 12px;
+        border: 1px solid rgba(183, 138, 62, 0.2);
+        border-radius: 12px;
+        padding: 12px;
+        background: #fffcf4;
+      }
+      .avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .review .name {
+        margin: 0;
+        font-weight: 700;
+      }
+      .review .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .stars {
+        color: #d89b2b;
+      }
+
+      .faq details {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 14px;
+        background: #fffaf0;
+        margin-bottom: 10px;
+      }
+      .faq summary {
+        cursor: pointer;
+        font-weight: 700;
+        list-style: none;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq p {
+        margin-bottom: 0;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .form-field {
+        display: flex;
+        flex-direction: column;
+      }
+      .form-field label {
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+      .form-field input,
+      .form-field select,
+      .form-field textarea {
+        border: 1px solid rgba(183, 138, 62, 0.24);
+        border-radius: 10px;
+        padding: 11px 12px;
+        font: inherit;
+        background: #fff;
+      }
+      .full {
+        grid-column: 1 / -1;
+      }
+      .full textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      .submit-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        padding: 13px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #2d220e;
+        background: linear-gradient(135deg, #e8b95d, #c68e27);
+        cursor: pointer;
+      }
+
+      .related {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(240px, 1fr);
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+      .related-card {
+        min-width: 240px;
+        border: 1px solid rgba(183, 138, 62, 0.2);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .related-card img {
+        height: 130px;
+      }
+      .related-content {
+        padding: 11px;
+      }
+      .related-content h3 {
+        margin: 0 0 4px;
+        font-size: 1.1rem;
+      }
+      .related-content .small {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      aside.sticky {
+        position: sticky;
+        top: 18px;
+        align-self: start;
+        border-radius: 18px;
+        border: 1px solid rgba(183, 138, 62, 0.24);
+        background: #fff;
+        box-shadow: var(--card-shadow);
+        padding: 18px;
+      }
+      .sticky h3 {
+        margin: 0 0 16px;
+        font-size: 1.3rem;
+      }
+      .sticky-row {
+        margin-bottom: 12px;
+        padding: 11px 13px;
+        border-radius: 10px;
+        background: #fff7e3;
+        border: 1px solid rgba(183, 138, 62, 0.23);
+      }
+      .sticky .btn {
+        width: 100%;
+        margin-top: 9px;
+      }
+
+      .mobile-quick-actions {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .page {
+          width: min(980px, 100% - 20px);
+          padding-top: 16px;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        aside.sticky {
+          display: none;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .packages {
+          grid-template-columns: 1fr;
+        }
+        .review-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-overlay {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .brandbar {
+          margin-bottom: 14px;
+          padding: 8px 10px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .hero {
+          border-radius: 18px;
+          min-height: 420px;
+        }
+        .hero-media img {
+          height: 520px;
+        }
+        .hero-overlay {
+          padding: 20px;
+        }
+        .hero-side {
+          align-self: stretch;
+          display: grid;
+          justify-content: end;
+        }
+        .hero-actions .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .gallery {
+          columns: 1 1;
+        }
+        .quick-grid,
+        .menu-grid,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .mobile-quick-actions {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+          padding: 10px 12px;
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.09);
+          border-top: 1px solid rgba(183, 138, 62, 0.24);
+          z-index: 40;
+        }
+        .mobile-quick-actions .btn {
+          width: 100%;
+          padding: 10px 7px;
+          white-space: nowrap;
+          text-align: center;
+          font-size: 12px;
+        }
+        .section {
+          border-radius: 16px;
+        }
+      }
+      @media (max-width: 520px) {
+        .hero h2 {
+          font-size: 2.1rem;
+          margin-top: 4px;
+        }
+      }
+      ::-webkit-scrollbar {
+        height: 8px;
+        width: 8px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ebd3a1;
+        border-radius: 99px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="brandbar">
+        <div class="logo">
+          <div class="logo-mark">CV</div>
+          <div>
+            <h1>Codyvent Marketplace</h1>
+            <span style="font-size: 12px; color: var(--muted)">Premium Event Directory for Wedding Vendors</span>
+          </div>
+        </div>
+        <span class="trusted">✔ Verified Business Directory</span>
+      </header>
+
+      <div class="top-shell">
+        <section class="hero">
+          <div class="hero-media">
+            <img
+              src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=80"
+              alt="Luxury wedding buffet setup with elegant table arrangement"
+            />
+            <div class="hero-overlay">
+              <div class="hero-content">
+                <div class="hero-top">
+                  <span class="pill popular">Featured Listing (Gold)</span>
+                  <span class="pill">Verified Vendor</span>
+                  <span class="pill">Event Decor & Catering Specialist</span>
+                </div>
+                <h2>ABC Catering Services</h2>
+                <div class="hero-meta">
+                  <span class="rating">⭐ 4.8 (120 Reviews)</span>
+                  <span>📍 Karachi, Pakistan</span>
+                  <span>Starting at Rs. 1,200 per head</span>
+                </div>
+                <div class="hero-actions">
+                  <button class="btn btn-primary">📱 WhatsApp</button>
+                  <button class="btn btn-dark">📞 Call Now</button>
+                  <button class="btn btn-gold">Get Quote</button>
+                </div>
+              </div>
+              <div class="hero-side">
+                <img
+                  class="logo-chip"
+                  src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=240&q=80"
+                  alt="ABC Catering Services logo"
+                />
+                <div class="floating-box">
+                  <span class="badge">Trusted Premium Caterer</span>
+                  <h3>Luxury Wedding & Event Catering</h3>
+                  <p>
+                    Elegant menus, precision service, and premium presentation for events from 50 to 1000 guests.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="layout">
+        <div class="content">
+          <section class="section">
+            <h2>Quick Information</h2>
+            <div class="card-grid quick-grid">
+              <article class="info-card">
+                <div class="label">Cuisine Types</div>
+                <div class="value">Pakistani, BBQ, Chinese, Continental</div>
+              </article>
+              <article class="info-card">
+                <div class="label">Experience</div>
+                <div class="value">10+ Years</div>
+              </article>
+              <article class="info-card">
+                <div class="label">Capacity</div>
+                <div class="value">50 - 1000 Guests</div>
+              </article>
+              <article class="info-card">
+                <div class="label">Service Areas</div>
+                <ul>
+                  <li>DHA</li>
+                  <li>Clifton</li>
+                  <li>Gulshan</li>
+                  <li>Bahria Town</li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <div class="label">Outdoor Catering</div>
+                <div class="value">Available</div>
+              </article>
+              <article class="info-card">
+                <div class="label">Live BBQ Counters</div>
+                <div class="value">Available</div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Gallery</h2>
+            <p class="section-lead">
+              A premium visual portfolio that demonstrates elegant setup quality and event precision for high-end weddings.</p>
+            <div class="gallery">
+              <figure class="gallery-card">
+                <img
+                  src="https://images.unsplash.com/photo-1555244162-803834f70067?auto=format&fit=crop&w=800&q=80"
+                  alt="Buffet setup with dessert bar and floral arrangement"
+                />
+                <figcaption class="gallery-caption">Buffet Setup Photos</figcaption>
+              </figure>
+              <figure class="gallery-card">
+                <img
+                  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80"
+                  alt="Wedding catering buffet in elegant venue"
+                />
+                <figcaption class="gallery-caption">Wedding Catering</figcaption>
+              </figure>
+              <figure class="gallery-card">
+                <img
+                  src="https://images.unsplash.com/photo-1603360946369-dc2f4f4f7b0b?auto=format&fit=crop&w=800&q=80"
+                  alt="Mehndi event dinner table setup"
+                />
+                <figcaption class="gallery-caption">Mehndi Catering</figcaption>
+              </figure>
+              <figure class="gallery-card">
+                <img
+                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+                  alt="Live bbq grilling and service setup"
+                />
+                <figcaption class="gallery-caption">Live BBQ Stations</figcaption>
+              </figure>
+              <figure class="gallery-card">
+                <img
+                  src="https://images.unsplash.com/photo-1563720223185-11077cb98fa6?auto=format&fit=crop&w=800&q=80"
+                  alt="Elegant plated dessert counter"
+                />
+                <figcaption class="gallery-caption">Dessert Counters</figcaption>
+              </figure>
+              <figure class="gallery-card">
+                <img
+                  src="https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=800&q=80"
+                  alt="Professional staff serving guests with care"
+                />
+                <figcaption class="gallery-caption">Catering Staff Service</figcaption>
+              </figure>
+              <figure class="gallery-card video">
+                <img
+                  src="https://images.unsplash.com/photo-1464226184884-fa280bca6f79?auto=format&fit=crop&w=900&q=80"
+                  alt="Catering service walkthrough"
+                />
+                <span class="play-badge">▶</span>
+                <figcaption class="gallery-caption">Video Thumbnail Preview</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Packages</h2>
+            <p class="section-lead"><strong>Transparent per-head pricing</strong> for better planning and clear budget decisions.</p>
+            <div class="packages">
+              <article class="package-card">
+                <h3>Silver Package</h3>
+                <div class="price">Rs. 1,200 / head</div>
+                <ul>
+                  <li>4-course vegetarian/non-vegetarian menu</li>
+                  <li>Basic service staff</li>
+                  <li>Standard dessert spread</li>
+                  <li>Standard setup and cleanup</li>
+                </ul>
+              </article>
+              <article class="package-card popular">
+                <h3>Gold Package</h3>
+                <div class="price">Rs. 1,800 / head</div>
+                <ul>
+                  <li>Premium buffet + live BBQ counter</li>
+                  <li>Dedicated event floor manager</li>
+                  <li>Welcome drinks and upgraded chafing</li>
+                  <li>Complimentary tasting session</li>
+                </ul>
+              </article>
+              <article class="package-card">
+                <h3>Platinum Package</h3>
+                <div class="price">Rs. 2,500 / head</div>
+                <ul>
+                  <li>Grand multi-cuisine luxury menu</li>
+                  <li>Multiple chef stations + plated premium service</li>
+                  <li>Special wedding dessert table</li>
+                  <li>Custom branding and premium setup design</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Menu Highlights</h2>
+            <p class="section-lead">
+              Signature dishes your clients remember.
+            </p>
+            <div class="menu-grid">
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1631515243348-5f2ea4f4d2d1?auto=format&fit=crop&w=700&q=80"
+                  alt="Chicken Biryani"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Chicken Biryani</h4>
+                  <p>Long-grain basmati with tender hand-cooked chicken.</p>
+                </div>
+              </article>
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=700&q=80"
+                  alt="Mutton Karahi"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Mutton Karahi</h4>
+                  <p>Slow-cooked with stone-ground spices and rich gravy.</p>
+                </div>
+              </article>
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1534938032737-6fdd4f9f6b57?auto=format&fit=crop&w=700&q=80"
+                  alt="Seekh Kabab"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Seekh Kabab</h4>
+                  <p>Grilled to order with fresh herbs and smoky finish.</p>
+                </div>
+              </article>
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1589307004398-0efb3dcb8a3a?auto=format&fit=crop&w=700&q=80"
+                  alt="Malai Boti"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Malai Boti</h4>
+                  <p>Creamy marinade for rich and tender flavor.</p>
+                </div>
+              </article>
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80"
+                  alt="Chinese rice"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Chinese Rice</h4>
+                  <p>Professional stir-fried rice station style service.</p>
+                </div>
+              </article>
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=80"
+                  alt="Dessert station"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Desserts</h4>
+                  <p>Assorted pastries, gulab jamun, chocolate fountains and more.</p>
+                </div>
+              </article>
+              <article class="food-card">
+                <img
+                  src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"
+                  alt="Live BBQ counter"
+                />
+                <div class="food-content">
+                  <h4 class="food-title">Live BBQ Counter</h4>
+                  <p>Freshly grilled favorites prepared in front of guests.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Reviews</h2>
+            <div class="reviews-summary">
+              <strong>4.8/5</strong>
+              <div>
+                <div class="stars">★★★★★</div>
+                <span>from 120 verified reviews</span>
+              </div>
+            </div>
+            <div class="review-grid">
+              <article class="review">
+                <img class="avatar" src="https://images.unsplash.com/photo-1544725176-7c40e5a2c9f8?auto=format&fit=crop&w=200&q=80" alt="client" />
+                <div>
+                  <p class="name">Ayesha Khan</p>
+                  <p class="small stars">★★★★★</p>
+                  <p>Excellent coordination and the food quality exceeded our expectations. Guests kept asking for second servings.</p>
+                </div>
+              </article>
+              <article class="review">
+                <img class="avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80" alt="client" />
+                <div>
+                  <p class="name">Fawad Ahmed</p>
+                  <p class="small stars">★★★★★</p>
+                  <p>On-time setup, professional staff, and amazing dessert counter. Our wedding in Clifton was handled flawlessly.</p>
+                </div>
+              </article>
+              <article class="review">
+                <img class="avatar" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&q=80" alt="client" />
+                <div>
+                  <p class="name">Sara Ali</p>
+                  <p class="small stars">★★★★☆</p>
+                  <p>Great menu variety and strong communication. Pricing was transparent and service quality was polished.</p>
+                </div>
+              </article>
+              <article class="review">
+                <img class="avatar" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=200&q=80" alt="client" />
+                <div>
+                  <p class="name">Imran Raza</p>
+                  <p class="small stars">★★★★★</p>
+                  <p>The live BBQ counter was the highlight of our anniversary dinner. Beautifully executed for 300+ guests.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section faq">
+            <h2>FAQ</h2>
+            <details open>
+              <summary>Can you customize menus for Halal-only events?</summary>
+              <p>Yes. All dishes are prepared with Halal guidelines in mind and can be customized for your religious and cultural preferences.</p>
+            </details>
+            <details>
+              <summary>Is the starting price inclusive of staff and equipment?</summary>
+              <p>Yes, the listed starting price covers core kitchen execution and standard service staff. Additional equipment can be included on request.</p>
+            </details>
+            <details>
+              <summary>Do you provide tasting sessions before booking?</summary>
+              <p>Absolutely. We offer tasting slots for medium-to-large weddings and corporate functions with custom menu previews.</p>
+            </details>
+            <details>
+              <summary>What is your cancellation and rescheduling policy?</summary>
+              <p>Advance notice applies based on event date and headcount; our team will provide a policy summary before confirmation.</p>
+            </details>
+            <details>
+              <summary>Can you handle multi-day events or destination weddings?</summary>
+              <p>Yes, destination and multi-day catering is available across Karachi with advance planning support and logistics coordination.</p>
+            </details>
+          </section>
+
+          <section class="section">
+            <h2>Quote Request Form</h2>
+            <form action="#" class="quote-form">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" placeholder="Full name" />
+                </div>
+                <div class="form-field">
+                  <label for="phone">Phone Number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="+92 300 0000000" />
+                </div>
+                <div class="form-field">
+                  <label for="whatsapp">WhatsApp Number</label>
+                  <input id="whatsapp" name="whatsapp" type="tel" placeholder="+92 300 0000000" />
+                </div>
+                <div class="form-field">
+                  <label for="event-date">Event Date</label>
+                  <input id="event-date" name="event-date" type="date" />
+                </div>
+                <div class="form-field">
+                  <label for="event-type">Event Type</label>
+                  <select id="event-type" name="event-type">
+                    <option>Wedding</option>
+                    <option>Mehndi</option>
+                    <option>Birthday</option>
+                    <option>Corporate Event</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="guests">Number of Guests</label>
+                  <input id="guests" name="guests" type="number" min="25" max="10000" placeholder="e.g., 250" />
+                </div>
+                <div class="form-field">
+                  <label for="budget">Budget Range</label>
+                  <select id="budget" name="budget">
+                    <option>Rs. 1,000 - 1,500 per head</option>
+                    <option>Rs. 1,500 - 2,000 per head</option>
+                    <option>Rs. 2,000+</option>
+                  </select>
+                </div>
+                <div class="form-field full">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Tell us about your event style, venue, and cuisine preferences."></textarea>
+                </div>
+              </div>
+              <button class="submit-btn" type="submit">Get Free Quote</button>
+            </form>
+          </section>
+
+          <section class="section">
+            <h2>Related Caterers</h2>
+            <div class="related">
+              <article class="related-card">
+                <img src="https://images.unsplash.com/photo-1551782450-17144efb9c12?auto=format&fit=crop&w=500&q=80" alt="Elite Banquet Catering" />
+                <div class="related-content">
+                  <h3>Elite Banquet Catering</h3>
+                  <p class="small">⭐ 4.7 | DHA, Clifton</p>
+                  <p class="small">Starting Rs. 1,050/head</p>
+                </div>
+              </article>
+              <article class="related-card">
+                <img src="https://images.unsplash.com/photo-1556910103-1c9adf5b7f65?auto=format&fit=crop&w=500&q=80" alt="Royal Feast Co." />
+                <div class="related-content">
+                  <h3>Royal Feast Co.</h3>
+                  <p class="small">⭐ 4.9 | Gulshan</p>
+                  <p class="small">Starting Rs. 1,500/head</p>
+                </div>
+              </article>
+              <article class="related-card">
+                <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=500&q=80" alt="Khana Royale" />
+                <div class="related-content">
+                  <h3>Khana Royale</h3>
+                  <p class="small">⭐ 4.6 | Bahria Town</p>
+                  <p class="small">Starting Rs. 1,320/head</p>
+                </div>
+              </article>
+              <article class="related-card">
+                <img src="https://images.unsplash.com/photo-1532635246-17e82a2f6f0d?auto=format&fit=crop&w=500&q=80" alt="Gather & Glow Events Catering" />
+                <div class="related-content">
+                  <h3>Gather &amp; Glow Events</h3>
+                  <p class="small">⭐ 4.8 | Clifton</p>
+                  <p class="small">Starting Rs. 1,700/head</p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sticky">
+          <h3>Ready to Book?</h3>
+          <div class="sticky-row">Starting Price: <strong>Rs. 1,200 / head</strong></div>
+          <button class="btn btn-primary">💬 WhatsApp</button>
+          <button class="btn btn-dark">📞 Call Now</button>
+          <button class="btn btn-gold">Get Quote</button>
+          <p style="margin: 12px 0 0; font-size: 12px; color: var(--muted)">
+            We help you convert faster with quick responses and clear package details.
+          </p>
+        </aside>
+      </div>
+    </main>
+
+    <div class="mobile-quick-actions">
+      <button class="btn btn-primary">📱 WhatsApp</button>
+      <button class="btn btn-dark">📞 Call</button>
+      <button class="btn btn-gold">Get Quote</button>
+    </div>
+  </body>
+</html>
