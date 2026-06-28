@@ -7,8 +7,6 @@ const navLinks = [
   ["Cart", "/cart"],
   ["About Us", "/about"],
   ["Contact Us", "/contact"],
-  ["Login", "/login"],
-  ["Sign Up", "/signup"],
 ];
 
 export function Header() {
@@ -24,6 +22,9 @@ export function Header() {
             {label}
           </Link>
         ))}
+        <Link className="account-link" href="/login">
+          Account
+        </Link>
       </nav>
     </header>
   );
